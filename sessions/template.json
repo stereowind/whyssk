@@ -1,0 +1,52 @@
+{
+  "title": "game session's title",
+  "intro": "introduction text (displayed before the game starts)",
+  "card_shuffle": "true/false. If true: cards will be picked randomly, not in order. Default: false",
+  "features": {
+    "feature1": {
+      "name": "name of the feature",
+      "value": "int from 0 to 100. Default: 50",
+      "visible": "feature visibility on screen, true/false. Default: true"
+    },
+    "feature2": {
+      "name": "name of the feature",
+      "value": "int from 0 to 100. Default: 50",
+      "visible": "feature visibility on screen, true/false. Default: true"
+    },
+    "feature3": {
+      "name": "name of the feature",
+      "value": "int from 0 to 100. Default: 50",
+      "visible": "feature visibility on screen, true/false. Default: true"
+    },
+    "feature4": {
+      "name": "name of the feature",
+      "value": "int from 0 to 100. Default: 50",
+      "visible": "feature visibility on screen, true/false. Default: true"
+    }
+  },
+  "conditions": {
+    "win": {
+      "text": "text to be displayed when you win",
+      "out_of_cards": "true/false (default: true)",
+      "feature_values": "list of ints 0~100 or null (default: [null, null, null, null]",
+    },
+    "lose": {
+      "text": "text to be displayed when you lose",
+      "out_of_cards": "true/false (default: false)",
+      "feature_values": "list of ints 0~100 or null (default: [0, 0, 0, 0]"
+    }
+  },
+  "cards": [
+    {
+      "cta": "Call To Action text",
+      "left_action": {
+        "text": "Left action text",
+        "impact": "List of integers, number of values should match number of features. Ex.: [-5, 0, 0, 15]"
+      },
+      "right_action": {
+        "text": "Right action text",
+        "impact": "List of integers, number of values should match number of features. Ex.: [-5, 0, 0, 15]"
+      }
+    }
+  ]
+}

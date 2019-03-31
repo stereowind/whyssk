@@ -1,0 +1,118 @@
+{
+  "title": "Beer Quest",
+  "intro": "You need a beer. Now. Fast. Go get it!",
+  "card_shuffle": false,
+  "features": {
+    "feature1": {
+      "name": "Money",
+      "value": 20,
+      "visible": true
+    },
+    "feature2": {
+      "name": "Sanity",
+      "value": 70,
+      "visible": true
+    },
+    "feature3": {
+      "name": "Luck",
+      "value": 5,
+      "visible": false
+    },
+    "feature4": {
+      "name": null,
+      "value": null,
+      "visible": null
+    }
+  },
+  "conditions": {
+    "win": {
+      "text": "You successfully got a beer and came back home alive! One more happy day in your life",
+      "out_of_cards": true,
+      "feature_values": [null, null, 100, null]
+    },
+    "lose": {
+      "text": "Maybe you didn't really need a beer from the start... But it's too late now",
+      "out_of_cards": false,
+      "feature_values": [0, 0, null, null]
+    }
+  },
+  "cards": [
+    {
+      "cta": "You are sitting on the couch watching TV. Suddenly voice in your head tells you to go get a beer.",
+      "left_action": {
+        "text": "Yes my lord, I will obey!",
+        "impact": [0, -20, 20]
+      },
+      "right_action": {
+        "text": "Maybe that's not a bad idea",
+        "impact": [0, -5, 0]
+      }
+    },
+    {
+      "cta": "You start preparing to go out but the only pair of jeans that you have is still wet after the laundry.",
+      "left_action": {
+        "text": "Put on your girlfriend's skirt",
+        "impact": [0, -20, 50]
+      },
+      "right_action": {
+        "text": "Put on wet jeans",
+        "impact": [0, -5, 0]
+      }
+    },
+    {
+      "cta": "The sun is shining bright. You are on the way to the liquor shop. There's a cat on the road in front of you.",
+      "left_action": {
+        "text": "Kick the cat",
+        "impact": [0, -20, 30]
+      },
+      "right_action": {
+        "text": "Ignore the cat",
+        "impact": [0, 10, 10]
+      }
+    },
+    {
+      "cta": "You spotted some coins stick in a pile of poo in a bush.",
+      "left_action": {
+        "text": "Get the coins!!!",
+        "impact": [20, -30, 10]
+      },
+      "right_action": {
+        "text": "No way I touch that poo!",
+        "impact": [0, 10, 0]
+      }
+    },
+    {
+      "cta": "There's a homeless person near the liquor shop. He asks if you could help him with some money.",
+      "left_action": {
+        "text": "Give him some money",
+        "impact": [-15, 5, 20]
+      },
+      "right_action": {
+        "text": "Ignore him",
+        "impact": [0, 0, 0]
+      }
+    },
+    {
+      "cta": "The liquor shop only have cheap lager and craft IPA in stock.",
+      "left_action": {
+        "text": "Get lager",
+        "impact": [-4, -10, 0]
+      },
+      "right_action": {
+        "text": "Get IPA",
+        "impact": [-15, 10, 0]
+      }
+    },
+    {
+      "cta": "You are going back home. The cat you saw on your way to the shop seems to be dancing on the sidewalk.",
+      "left_action": {
+        "text": "Dance with the cat!",
+        "impact": [0, -30, 50]
+      },
+      "right_action": {
+        "text": "This can't be real... Ignore what you just saw",
+        "impact": [0, -30, 0]
+      }
+    }
+  ]
+}
