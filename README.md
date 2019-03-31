@@ -48,8 +48,8 @@ You can also refer to pre-defined session files (currently only lame `beerquest.
 
 ## Project structure
 ```python 
-sessions/-*.json           # Custom story settings files
-        \-template.json    # Story settings template
+sessions/*.json            # Custom story settings files
+         template.json     # Story settings template
 __main__.py                # Initializes Whyssk
 classes.py                 # File with classes used in session
 get_settings.py            # Import json settings
