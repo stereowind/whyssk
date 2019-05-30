@@ -1,4 +1,5 @@
 import json
+import logging
 
 
 def get_settings(filename: str) -> tuple:
@@ -25,12 +26,12 @@ def get_settings(filename: str) -> tuple:
         try:
             settings = json.load(file)
             # TODO Extensive check if json file is in correct format
+            logging.debug(f"Successfully loaded settings from {filename}")
             features = settings.pop('features')
             conditions = settings.pop('conditions')
             cards = settings.pop('cards')
             return settings, features, conditions, cards
 
         except Exception as e:
-            print("Exception occurred! Error message:")
-            print(str(e))
+            logging.exception("Exception occurred! Error message:")
             input("\nPlease ENTER to start over...")

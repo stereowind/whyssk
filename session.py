@@ -1,5 +1,6 @@
 import os
 import sys
+import logging
 from get_settings import get_settings
 from classes import Settings, Feature, Condition, CardDeck, Card
 
@@ -22,13 +23,16 @@ def clear() -> None:
 
 def condition_check() -> str:
     """Checks if win or lost conditions are met this round"""
+    logging.info("Condition check invoked")
     global features_total, deck, win, lose
     # Reset value to min or max if out of bounds
     for feature in features_total:
         if feature.value < 0:
             feature.value = 0
+            logging.debug(f"Normalized feature {feature} to 0")
         elif feature.value > 100:
             feature.value = 100
+            logging.debug(f"Normalized feature {feature} to 100")
 
     # Check for lose conditions
     if lose.out_of_cards and len(deck.cards) == 0:
@@ -50,6 +54,7 @@ def condition_check() -> str:
 def status() -> None:
     """Prints current status"""
     clear()
+    logging.debug("Status print invoked")
     print("\n")
     global features_total
     for feature in features_total:
@@ -84,24 +89,26 @@ def initialize() -> None:
 
     # Welcome screen
     clear()
+    logging.debug("Initialization flow invoked")
     print("=" * 20)
     print("Welcome to Whyssk!")
     print("=" * 20 + "\n")
 
     # Ask for session settings file
     while True:
-        filename = str(input("Please enter session settings file name (must be located inside sessions/ folder):\n"))
+        filename = str(input("Please enter session settings file name (must be located inside sessions\\ folder):\n"))
         if not filename.endswith(".json"):
             filename += ".json"
-        path = str(os.path.realpath(sys.argv[0])) + "/sessions/" + filename
+        path = str(os.path.realpath(sys.argv[0])) + "\\sessions\\" + filename
         print(path)
         if not os.path.exists(path):
-            print(f"File {filename} does not exist in sessions/ folder!\n")
+            print(f"File {filename} does not exist in sessions\\ folder!\n")
         else:
             print(f"File {filename} found! Importing...\n")
             break
 
     # Import settings from json file and create class instances
+    logging.debug(f"Getting settings from {path}...")
     sett, feat, cond, cards = get_settings(path)
     global settings, feature1, feature2, feature3, feature4, win, lose, deck, features_total
     settings = Settings(sett)
@@ -120,7 +127,7 @@ def initialize() -> None:
     for feature in [feature1, feature2, feature3, feature4]:
         if feature.name:
             features_total.append(feature)
-
+    logging.debug(f"Successfully imported setting from {path}")
     print("Import successful!")
     input("Press ENTER to start the session!")
     clear()
@@ -128,6 +135,7 @@ def initialize() -> None:
 
 def main() -> None:
     """Main session flow"""
+    logging.debug("Main flow invoked")
     global settings, feature1, feature2, feature3, feature4, win, lose, deck, features_total
     result = None
     print("\n" + settings.intro)
@@ -137,6 +145,7 @@ def main() -> None:
         # Check if win or lose conditions are met
         result = condition_check()
         if result == "lose" or result == "win":
+            logging.info(f"Session result confirmed: {result}")
             break
         # Loop below re-executes if input was different from "l" or "r"
         while True:
@@ -146,25 +155,35 @@ def main() -> None:
             print(f"Right: {card.r_text}")
             choice = input("\nChoose your destiny! [l/r]:\n")
             if choice.lower() == 'l':
+                logging.debug("Left option chosen")
                 for idx, feature in enumerate(features_total):
                     feature.value += card.l_impact[idx]
+                    logging.info(f"Applied {card.l_impact[idx]} to {feature.value}")
                 break
             elif choice.lower() == 'r':
+                logging.debug("Right option chosen")
                 for idx, feature in enumerate(features_total):
                     feature.value += card.r_impact[idx]
+                    logging.info(f"Applied {card.r_impact[idx]} to {feature.value}")
                 break
         clear()
 
     # End of session
     if result == 'win':
+        logging.info("Win conditions achieved")
         print("\nYOU WON!\n")
         print(win.text)
     elif result == 'lose':
+        logging.info("Lose conditions achieved")
         print("\nYOU LOST!\n")
         print(lose.text)
+    else:
+        logging.error("Unexpected end of session: %(module)s %(lineno)d")
+        print("UNEXPECTED END OF SESSION")
     input("\n\nPress ENTER to exit...")
 
     # Clean up
+    logging.debug("Cleaning all values up...")
     for _ in [settings, feature1, feature2, feature3, feature4, win, lose, deck]:
         _ = None
     features_total = []
